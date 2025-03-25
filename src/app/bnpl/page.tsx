@@ -62,7 +62,7 @@ const scenarios = [
         title: "Unexpected Expenses",
         price: 400,
         weeklyPayment: 100,
-        image: "/images/ps5.png",
+        image: "/images/crack.jpg",
         description: "Life happens! Ashley's iPhone screen cracked and needs repair ($300). She also realized she forgot to pay her utility bill last month ($100). These unexpected expenses need to be handled immediately."
     }
 ];
