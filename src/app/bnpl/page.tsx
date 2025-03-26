@@ -155,7 +155,13 @@ export default function BNPLExperience() {
         const newDecisions = [...decisions, { purchase: currentPurchase, bought, bnpl }];
         setDecisions(newDecisions);
         if (bought) {
-            setHappinessScore(prev => prev + 20);
+            if (currentPurchase.noBNPL) {
+                // Deduct 10 points for unexpected expenses
+                setHappinessScore(prev => prev - 10);
+            } else {
+                // Add 20 points for regular purchases
+                setHappinessScore(prev => prev + 20);
+            }
         }
         setShowIntermediateSummary(true);
     };
@@ -179,14 +185,26 @@ export default function BNPLExperience() {
             // Go back one step and remove the last decision
             const lastDecision = decisions[decisions.length - 1];
             if (lastDecision && lastDecision.bought) {
-                setHappinessScore(prev => prev - 20);
+                if (lastDecision.purchase.noBNPL) {
+                    // Add back 10 points for unexpected expenses
+                    setHappinessScore(prev => prev + 10);
+                } else {
+                    // Deduct 20 points for regular purchases
+                    setHappinessScore(prev => prev - 20);
+                }
             }
             setDecisions(prev => prev.slice(0, -1));
         } else if (!isFirstStep) {
             setCurrentStep(prev => prev - 1);
             const lastDecision = decisions[decisions.length - 1];
             if (lastDecision && lastDecision.bought) {
-                setHappinessScore(prev => prev - 20);
+                if (lastDecision.purchase.noBNPL) {
+                    // Add back 10 points for unexpected expenses
+                    setHappinessScore(prev => prev + 10);
+                } else {
+                    // Deduct 20 points for regular purchases
+                    setHappinessScore(prev => prev - 20);
+                }
             }
             setDecisions(prev => prev.slice(0, -1));
         }
