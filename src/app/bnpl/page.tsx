@@ -312,13 +312,6 @@ export default function BNPLExperience() {
                     <div className="col-span-2">
                         <p className="text-white">Final Happiness Score</p>
                         <p className="text-3xl font-bold text-yellow-400">⭐ {happinessScore}</p>
-                        <p className="text-sm text-gray-400 mt-1">
-                            {happinessScore === 0 ? "No purchases made yet" :
-                             happinessScore === 20 ? "One purchase made" :
-                             happinessScore === 40 ? "Two purchases made" :
-                             happinessScore === 60 ? "Three purchases made" :
-                             "All purchases made!"}
-                        </p>
                     </div>
                 </div>
 
