@@ -73,6 +73,7 @@ export default function BNPLExperience() {
     const [showSummary, setShowSummary] = useState(false);
     const [showIntermediateSummary, setShowIntermediateSummary] = useState(false);
     const [selectedScenario, setSelectedScenario] = useState<typeof scenarios[0] | null>(null);
+    const [happinessScore, setHappinessScore] = useState(0);
     const initialBalance = 1000;
 
     const currentPurchase = purchases[currentStep];
@@ -153,6 +154,9 @@ export default function BNPLExperience() {
     const handleDecision = (bought: boolean, bnpl: boolean) => {
         const newDecisions = [...decisions, { purchase: currentPurchase, bought, bnpl }];
         setDecisions(newDecisions);
+        if (bought) {
+            setHappinessScore(prev => prev + 20);
+        }
         setShowIntermediateSummary(true);
     };
 
@@ -173,9 +177,17 @@ export default function BNPLExperience() {
         } else if (showIntermediateSummary) {
             setShowIntermediateSummary(false);
             // Go back one step and remove the last decision
+            const lastDecision = decisions[decisions.length - 1];
+            if (lastDecision && lastDecision.bought) {
+                setHappinessScore(prev => prev - 20);
+            }
             setDecisions(prev => prev.slice(0, -1));
         } else if (!isFirstStep) {
             setCurrentStep(prev => prev - 1);
+            const lastDecision = decisions[decisions.length - 1];
+            if (lastDecision && lastDecision.bought) {
+                setHappinessScore(prev => prev - 20);
+            }
             setDecisions(prev => prev.slice(0, -1));
         }
     };
@@ -185,6 +197,7 @@ export default function BNPLExperience() {
         setCurrentStep(0);
         setShowSummary(false);
         setShowIntermediateSummary(false);
+        setHappinessScore(0);
     };
 
     const handleScenarioSelect = (scenario: typeof scenarios[0]) => {
@@ -211,6 +224,10 @@ export default function BNPLExperience() {
                     <div>
                         <p className="text-white">Total BNPL Debt</p>
                         <p className="text-2xl font-semibold text-white">${calculateTotalDebt()}</p>
+                    </div>
+                    <div>
+                        <p className="text-white">Happiness Score</p>
+                        <p className="text-2xl font-semibold text-yellow-400">⭐ {happinessScore}</p>
                     </div>
                 </div>
 
@@ -273,6 +290,17 @@ export default function BNPLExperience() {
                     <div>
                         <p className="text-white">Total BNPL Debt</p>
                         <p className="text-2xl font-semibold text-white">${calculateTotalDebt()}</p>
+                    </div>
+                    <div className="col-span-2">
+                        <p className="text-white">Final Happiness Score</p>
+                        <p className="text-3xl font-bold text-yellow-400">⭐ {happinessScore}</p>
+                        <p className="text-sm text-gray-400 mt-1">
+                            {happinessScore === 0 ? "No purchases made yet" :
+                             happinessScore === 20 ? "One purchase made" :
+                             happinessScore === 40 ? "Two purchases made" :
+                             happinessScore === 60 ? "Three purchases made" :
+                             "All purchases made!"}
+                        </p>
                     </div>
                 </div>
 
