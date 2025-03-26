@@ -10,12 +10,13 @@ interface Purchase {
     weekly: number;
     weeks: number;
     noBNPL?: boolean; // <-- Optional flag
+    happinessScore: number; // Add happiness score to the interface
 }
 
 const purchases: Purchase[] = [
-    { name: 'Shoes', fullPrice: 200, bnplPrice: 200, weekly: 50, weeks: 4 },
-    { name: 'iPhone', fullPrice: 1000, bnplPrice: 1000, weekly: 250, weeks: 4 },
-    { name: 'PS5', fullPrice: 500, bnplPrice: 500, weekly: 125, weeks: 4 },
+    { name: 'Shoes', fullPrice: 200, bnplPrice: 200, weekly: 50, weeks: 4, happinessScore: 30 },
+    { name: 'iPhone', fullPrice: 1000, bnplPrice: 1000, weekly: 250, weeks: 4, happinessScore: 10 },
+    { name: 'PS5', fullPrice: 500, bnplPrice: 500, weekly: 125, weeks: 4, happinessScore: 20 },
     {
         name: 'Unexpected Expenses',
         fullPrice: 400,
@@ -23,6 +24,7 @@ const purchases: Purchase[] = [
         weekly: 100,
         weeks: 4,
         noBNPL: true,
+        happinessScore: -20,
     } as Purchase & { noBNPL: true }
 ];
 
@@ -155,13 +157,7 @@ export default function BNPLExperience() {
         const newDecisions = [...decisions, { purchase: currentPurchase, bought, bnpl }];
         setDecisions(newDecisions);
         if (bought) {
-            if (currentPurchase.noBNPL) {
-                // Deduct 10 points for unexpected expenses
-                setHappinessScore(prev => prev - 10);
-            } else {
-                // Add 20 points for regular purchases
-                setHappinessScore(prev => prev + 20);
-            }
+            setHappinessScore(prev => prev + currentPurchase.happinessScore);
         }
         setShowIntermediateSummary(true);
     };
@@ -185,26 +181,14 @@ export default function BNPLExperience() {
             // Go back one step and remove the last decision
             const lastDecision = decisions[decisions.length - 1];
             if (lastDecision && lastDecision.bought) {
-                if (lastDecision.purchase.noBNPL) {
-                    // Add back 10 points for unexpected expenses
-                    setHappinessScore(prev => prev + 10);
-                } else {
-                    // Deduct 20 points for regular purchases
-                    setHappinessScore(prev => prev - 20);
-                }
+                setHappinessScore(prev => prev - lastDecision.purchase.happinessScore);
             }
             setDecisions(prev => prev.slice(0, -1));
         } else if (!isFirstStep) {
             setCurrentStep(prev => prev - 1);
             const lastDecision = decisions[decisions.length - 1];
             if (lastDecision && lastDecision.bought) {
-                if (lastDecision.purchase.noBNPL) {
-                    // Add back 10 points for unexpected expenses
-                    setHappinessScore(prev => prev + 10);
-                } else {
-                    // Deduct 20 points for regular purchases
-                    setHappinessScore(prev => prev - 20);
-                }
+                setHappinessScore(prev => prev - lastDecision.purchase.happinessScore);
             }
             setDecisions(prev => prev.slice(0, -1));
         }
