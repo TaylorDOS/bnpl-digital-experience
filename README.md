@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BNPL Digital Experience
+
+This is an interactive, browser-based **Buy Now Pay Later (BNPL)** simulation designed as part of the *Geographies of Finance and Money* module. It explores the emotional, financial, and behavioral impact of BNPL decisions through a gamified digital experience.
+
+## Live Demo
+![BNPL Screenshot](public/images/screenshot.png)
+**Deployed Site:** [BNPL Experience](https://bnpl-experience.vercel.app/)
+
+## Project Overview
+Users navigate a series of relatable purchase scenarios where they must choose whether to:
+- Buy the product outright
+- Use BNPL
+- Skip the purchase
+
+The visual interface dynamically responds to user decisions, updating weekly payment breakdowns, happiness scores, remaining balances, and BNPL debt. The final summary provides a reflection on financial well-being and emotional impact.
+
+## Technologies Used
+- **Next.js (React)** for building the interface
+- **TypeScript** for strong type safety
+- **Tailwind CSS** for styling
+- **React State Hooks** for interactive decision tracking
+- **Image component from Next.js** for performance-optimized media
+
+## Features
+- 4 narrative scenarios with unique images and descriptions
+- Multiple purchase options: BNPL, full price, or skip
+- Real-time tracking of:
+  - Weekly payments
+  - Remaining disposable income
+  - Cumulative BNPL debt
+  - Weekly balance changes
+  - Happiness score
+- Final summary for reflection
+- Ability to restart and explore different decision paths
 
 ## Getting Started
-
-First, run the development server:
+To run the app locally:
 
 ```bash
+git clone https://github.com/taylordos/bnpl-digital-experience.git
+cd bnpl-experience
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Learning Goals
+This project was created to:
+- Explore the real-world financial impact of BNPL usage
+- Reflect on consumer psychology and happiness vs. debt
+- Understand how digital finance shapes everyday decision-making
+- Practice turning abstract financial concepts into tangible user experiences
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Academic Context
+Prepared for the **Geographies of Finance and Money** module as part of a broader exploration of how digital finance tools affect personal finance, consumer habits, and emotional well-being.
